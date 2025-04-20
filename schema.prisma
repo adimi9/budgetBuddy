@@ -1,0 +1,57 @@
+generator client {
+  provider = "prisma-client-py"
+}
+
+datasource db {
+  provider = "postgresql" // change to sqlite if you're testing locally
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String    @id @default(uuid())
+  username      String    @unique
+  email         String    @unique
+  phoneNumber   String
+  password      String
+  profilePicUrl String?   // store cloud URL or file path
+  createdAt     DateTime  @default(now())
+
+  // Relationships
+  expenses      Expense[]
+  savingsJars   SavingsJar[]
+  reminders     Reminder[]
+}
+
+model Expense {
+  id         String   @id @default(uuid())
+  userId     String
+  category   String
+  amount     Float
+  note       String?
+  recurring  Boolean  @default(false)
+  createdAt  DateTime @default(now())
+
+  user       User     @relation(fields: [userId], references: [id])
+}
+
+model SavingsJar {
+  id          String   @id @default(uuid())
+  userId      String
+  name        String
+  goal        Float
+  description String
+  progress    Int      @default(0) // stored as % (0–100)
+
+  user        User     @relation(fields: [userId], references: [id])
+}
+
+model Reminder {
+  id         String   @id @default(uuid())
+  userId     String
+  name       String
+  amount     Float
+  dueDate    DateTime
+  createdAt  DateTime @default(now())
+
+  user       User     @relation(fields: [userId], references: [id])
+}
