@@ -38,7 +38,7 @@
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/your-username/budget-buddy.git
+git clone https://github.com/adimi9/budgetBuddy
 cd budget-buddy
 ```
 
