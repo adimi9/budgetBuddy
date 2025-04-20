@@ -78,7 +78,7 @@ http://localhost:8000
 
 #### Run Streamlit app:
 ```
-streamlit run app.py
+streamlit run budget_buddy.py
 ```
 
 The app will open at:
